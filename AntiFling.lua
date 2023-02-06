@@ -1,4 +1,4 @@
---If you are going to use to share out to the public credit me you skid.
+--If you are going to use to share out to the public credit me you skid. - noketchupjustrice#3666
 --Everything should be fixed was just debating wether I should release this or not.
 if not game:IsLoaded() then
 	game.IsLoaded:Wait()
