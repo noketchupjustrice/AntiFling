@@ -5,6 +5,7 @@ if not game:IsLoaded() then
 	game.IsLoaded:Wait()
 end;
 
+-- Yea skid off this I know who you are
 local RunService = game.RunService
 local SpeedWaitBind = Instance.new("BindableEvent")
 for _, v in ipairs({RunService.RenderStepped, RunService.Heartbeat, RunService.Stepped, RunService.PreRender, RunService.PostSimulation, RunService.PreSimulation}) do
