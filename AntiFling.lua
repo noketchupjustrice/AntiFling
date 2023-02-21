@@ -1,14 +1,48 @@
+--Updated few stuff and much faster
 --If you are going to use to share out to the public credit me you skid. - noketchupjustrice#3666
 --Everything should be fixed was just debating wether I should release this or not.
 if not game:IsLoaded() then
 	game.IsLoaded:Wait()
 end;
 
+local RunService = game.RunService
+local SpeedWaitBind = Instance.new("BindableEvent")
+for _, v in ipairs({RunService.RenderStepped, RunService.Heartbeat, RunService.Stepped, RunService.PreRender, RunService.PostSimulation, RunService.PreSimulation}) do
+    v.Connect(v, function()
+        return SpeedWaitBind.Fire(SpeedWaitBind, tick())
+    end)
+end
+
+local FastWait = function(Number)
+    if not type(Number) == "number" then
+        return
+    else
+        if Number == 0 or Number == "" or Number == " " then
+            Number = 0
+            SpeedWaitBind.Event:Wait(Number)
+        else
+            SpeedWaitBind.Event:Wait(number)
+        end
+    end
+end
+
 local Players = game:service("Players")
 local LocalPlayer = Players.LocalPlayer
 
 if not LocalPlayer.Character then
-	repeat task.wait() until LocalPlayer.Character
+	repeat FastWait() until LocalPlayer.Character
+end;
+
+if not LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
+	repeat FastWait() until LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+end;
+
+if not LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+	repeat FastWait() until LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+end;
+
+if not LocalPlayer.Character:FindFirstChild("Head") then
+	repeat FastWait() until LocalPlayer.Character:FindFirstChild("Head")
 end;
 
 local CheckInstance = function(Part)
@@ -33,8 +67,12 @@ local Insert = function(Target, Bool)
 		if not Target.Character then
 			Target.CharacterAdded:Wait()
 		end;
-		Target.Character:WaitForChild("Head", 5)
-		Target.Character:WaitForChild("Humanoid", 5)
+		if not Target.Character:FindFirstChild("Head") then
+			repeat FastWait() until Target.Character:FindFirstChild("Head")
+		end;
+		if not Target.Character:FindFirstChildOfClass("Humanoid") then
+			repeat FastWait() until Target.Character:FindFirstChildOfClass("Humanoid")
+		end;
 		spawn(function()
 			pcall(function()
 				for i, v in pairs(Target.Character:GetDescendants()) do
@@ -72,8 +110,12 @@ local Reset = function()
 	if not LocalPlayer.Character then
 		LocalPlayer.CharacterAdded:Wait()
 	end;
-	LocalPlayer.Character:WaitForChild("Head")
-	LocalPlayer.Character:WaitForChild("Humanoid")
+	if not LocalPlayer.Character:FindFirstChild("Head") then
+		repeat FastWait() until LocalPlayer.Character:FindFirstChild("Head")
+	end;
+	if not LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
+		repeat FastWait() until LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+	end;
 	for i, v in pairs(Players:GetPlayers()) do
 		if v ~= LocalPlayer then
 			pcall(function()
