@@ -5,7 +5,6 @@ if not game:IsLoaded() then
 	game.IsLoaded:Wait()
 end;
 
--- Yea skid off this I know who you are
 local RunService = game.RunService
 local SpeedWaitBind = Instance.new("BindableEvent")
 for _, v in ipairs({RunService.RenderStepped, RunService.Heartbeat, RunService.Stepped, RunService.PreRender, RunService.PostSimulation, RunService.PreSimulation}) do
@@ -38,14 +37,6 @@ if not LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
 	repeat FastWait() until LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
 end;
 
-if not LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-	repeat FastWait() until LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
-end;
-
-if not LocalPlayer.Character:FindFirstChild("Head") then
-	repeat FastWait() until LocalPlayer.Character:FindFirstChild("Head")
-end;
-
 local CheckInstance = function(Part)
 	if Part.ClassName:lower():find("part") then
 		local BaseInstance = Part;
@@ -67,9 +58,6 @@ local Insert = function(Target, Bool)
 		local Inserted = {}
 		if not Target.Character then
 			Target.CharacterAdded:Wait()
-		end;
-		if not Target.Character:FindFirstChild("Head") then
-			repeat FastWait() until Target.Character:FindFirstChild("Head")
 		end;
 		if not Target.Character:FindFirstChildOfClass("Humanoid") then
 			repeat FastWait() until Target.Character:FindFirstChildOfClass("Humanoid")
@@ -110,9 +98,6 @@ Players.PlayerAdded:Connect(Insert, false)
 local Reset = function()
 	if not LocalPlayer.Character then
 		LocalPlayer.CharacterAdded:Wait()
-	end;
-	if not LocalPlayer.Character:FindFirstChild("Head") then
-		repeat FastWait() until LocalPlayer.Character:FindFirstChild("Head")
 	end;
 	if not LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
 		repeat FastWait() until LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
